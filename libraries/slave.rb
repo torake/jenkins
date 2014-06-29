@@ -41,7 +41,9 @@ class Chef
       name_attribute: true
     attribute :description,
       kind_of: String,
-      default: DelayedEvaluator.new { "Jenkins slave #{slave_name}" }
+      default: lazy { |new_resource|
+        "Jenkins slave #{new_resource.slave_name}"
+      }
     attribute :remote_fs,
       kind_of: String,
       default: '/home/jenkins'
